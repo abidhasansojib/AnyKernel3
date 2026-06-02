@@ -36,9 +36,11 @@ no_magisk_check=1
 # GKI check
 kernel_version=$(cat /proc/version | awk -F '-' '{print $1}' | awk '{print $3}')
 case $kernel_version in
-    5.1*) ksu_supported=true ;;
+    5.10*) ksu_supported=true ;;
+    5.15*) ksu_supported=true ;;
     6.1*) ksu_supported=true ;;
     6.6*) ksu_supported=true ;;
+    6.12*) ksu_supported=true ;;
     *) ksu_supported=false ;;
 esac
 
@@ -57,14 +59,10 @@ fi
 
 ui_print " "
 ui_print "WildKernels Telegram Channel:"
-ui_print "https://t.me/WildKernels"
+ui_print "https://t.me/WildKernelsTG"
 ui_print " "
 ui_print "WildKernels Website:"
 ui_print "https://wildkernels.dev"
-ui_print " "
-ui_print "Wild_KSU GitHub Repository:"
-ui_print "https://github.com/WildKernels/Wild_KSU"
-ui_print "KernelSU-Next fork focused on customization and root-hiding features!"
 ui_print " "
 ui_print "GKI_KernelSU_SUSFS GitHub Repository:"
 ui_print "https://github.com/WildKernels/GKI_KernelSU_SUSFS"
@@ -77,4 +75,8 @@ ui_print " "
 ui_print "Samsung_KernelSU_SUSFS GitHub Repository:"
 ui_print "https://github.com/WildKernels/Samsung_KernelSU_SUSFS"
 ui_print "Samsung kernels with KernelSU and SUSFS."
+ui_print " "
+ui_print "If you have any questions or need support, feel free to join our Telegram channel!" 
+ui_print " "
+ui_print "Thank you for using Wild Kernels! - TheWildJames"
 ui_print " "
