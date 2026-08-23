@@ -1215,4 +1215,44 @@ handle_input() {
 
 setup_ak;
 
+show_kernel_menu() {
+    if [ -f "$AKHOME/Bypass-Image" ]; then
+        ui_print " "
+        ui_print "=========================================="
+        ui_print "            Kernel Image Mode             "
+        ui_print "=========================================="
+        ui_print " VOL+ : Bypass Mode (Bypass-Image)"
+        ui_print " VOL- : Normal Mode (Standard Image)"
+        ui_print " Auto-selecting Bypass Mode in ${TIMEOUT_LIMIT}s..."
+        ui_print "=========================================="
+        ui_print " "
+
+        handle_input
+
+        KEY_RESULT=$(cat /tmp/ak3_key_result 2>/dev/null)
+
+        case "$KEY_RESULT" in
+            KEY_VOLUMEUP)
+                ui_print "  -> Selected: Bypass Mode (Bypass-Image)"
+                mv -f "$AKHOME/Bypass-Image" "$AKHOME/Image"
+                ;;
+
+            KEY_VOLUMEDOWN)
+                ui_print "  -> Selected: Normal Mode (Standard Image)"
+                rm -f "$AKHOME/Bypass-Image"
+                ;;
+
+            TIMEOUT|*)
+                ui_print "  -> No button pressed within ${TIMEOUT_LIMIT}s."
+                ui_print "  -> Auto-selected: Bypass Mode (Bypass-Image)"
+                mv -f "$AKHOME/Bypass-Image" "$AKHOME/Image"
+                ;;
+        esac
+        ui_print " "
+    fi
+}
+
+show_kernel_menu;
+
 do_check_boot_version;
+
