@@ -4,7 +4,7 @@
 ### AnyKernel setup
 # global properties
 properties() { '
-kernel.string=Wild Kernels by TheWildJames aka Morgan Weedman
+kernel.string=GKI KERNEL by @abidhasansojib
 do.devicecheck=0
 do.modules=0
 do.systemless=0
@@ -25,14 +25,14 @@ keycheck.timeout=10
 
 ### AnyKernel install
 ## boot shell variables
-block=boot
-is_slot_device=auto
-ramdisk_compression=auto
-patch_vbmeta_flag=auto
-no_magisk_check=1
+BLOCK=boot;
+IS_SLOT_DEVICE=auto;
+RAMDISK_COMPRESSION=auto;
+PATCH_VBMETA_FLAG=auto;
+NO_MAGISK_CHECK=1;
 
 # import functions/variables and setup patching - see for reference (DO NOT REMOVE)
-. tools/ak3-core.sh
+. tools/ak3-core.sh;
 
 # GKI check
 kernel_version=$(cat /proc/version | awk -F '-' '{print $1}' | awk '{print $3}')
@@ -45,39 +45,15 @@ case $kernel_version in
     *) ksu_supported=false ;;
 esac
 
-ui_print " " "  -> Wild Kernels Supported: $ksu_supported"
+ui_print "  -> GKI Kernels Supported: $ksu_supported"
 $ksu_supported || abort "  -> Non-GKI device, abort."
 
 # boot install
-split_boot
+split_boot;
 
 if [ -f "$SPLITIMG/ramdisk.cpio" ]; then
-    unpack_ramdisk
-    write_boot
+    unpack_ramdisk;
+    write_boot;
 else
-    flash_boot
-fi
-
-ui_print " "
-ui_print "WildKernels Telegram Channel:"
-ui_print "https://t.me/WildKernelsTG"
-ui_print " "
-ui_print "WildKernels Website:"
-ui_print "https://wildkernels.dev"
-ui_print " "
-ui_print "GKI_KernelSU_SUSFS GitHub Repository:"
-ui_print "https://github.com/WildKernels/GKI_KernelSU_SUSFS"
-ui_print "GKI kernels with KernelSU and SUSFS."
-ui_print " "
-ui_print "OnePlus_KernelSU_SUSFS GitHub Repository:"
-ui_print "https://github.com/WildKernels/OnePlus_KernelSU_SUSFS"
-ui_print "OnePlus kernels with KernelSU and SUSFS."
-ui_print " "
-ui_print "Samsung_KernelSU_SUSFS GitHub Repository:"
-ui_print "https://github.com/WildKernels/Samsung_KernelSU_SUSFS"
-ui_print "Samsung kernels with KernelSU and SUSFS."
-ui_print " "
-ui_print "If you have any questions or need support, feel free to join our Telegram channel!" 
-ui_print " "
-ui_print "Thank you for using Wild Kernels! - TheWildJames"
-ui_print " "
+    flash_boot;
+fi;
