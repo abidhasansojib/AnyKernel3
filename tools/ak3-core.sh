@@ -1142,7 +1142,7 @@ find_volume_nodes() {
     for dev in /dev/input/event*; do
         [ -e "$dev" ] || continue
         local caps=""
-        caps=$(timeout 0.2 $BIN/getevent -p "$dev" 2>/dev/null)
+        caps=$($BIN/busybox timeout 0.2 $BIN/getevent -p "$dev" 2>/dev/null || timeout 0.2 $BIN/getevent -p "$dev" 2>/dev/null || $BIN/getevent -p "$dev" 2>/dev/null)
         [ $? -eq 124 ] && continue # Skip frozen nodes entirely
         if echo "$caps" | grep -qE "KEY_VOLUMEUP|KEY_VOLUMEDOWN|0072|0073"; then
             active_nodes="$active_nodes $dev"
@@ -1206,7 +1206,7 @@ handle_input() {
     echo "$KEY_RESULT" > /tmp/ak3_key_result
     {
         kill -9 $pids 2>/dev/null
-        killall -9 getevent 2>/dev/null
+        $BIN/busybox killall -9 getevent 2>/dev/null || killall -9 getevent 2>/dev/null
         rm -f /tmp/ak3_hit_*
     } >/dev/null 2>&1
 }
