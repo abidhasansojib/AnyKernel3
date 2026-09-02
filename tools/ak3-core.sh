@@ -1151,8 +1151,6 @@ find_volume_nodes() {
     echo "$active_nodes"
 }
 
-VOLUME_DEVS=$(find_volume_nodes)
-
 handle_input() {
     ui_print "Waiting for key release... (Auto-timeout in $TIMEOUT_LIMIT seconds)"
     KEY_RESULT="TIMEOUT"
@@ -1217,6 +1215,7 @@ setup_ak;
 
 show_kernel_menu() {
     if [ -f "$AKHOME/Bypass-Image" ]; then
+        VOLUME_DEVS=$(find_volume_nodes)
         ui_print " "
         ui_print "=========================================="
         ui_print "            Kernel Image Mode             "
